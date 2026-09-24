@@ -19,8 +19,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Clear old Gradle cache
+        run: rm -rf ~/.gradle/wrapper ~/.gradle/caches
+
+      - name: Check which wrapper is used
+        run: |
+          cat gradle/wrapper/gradle-wrapper.properties
+          chmod +x gradlew
+          ./gradlew --version
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
