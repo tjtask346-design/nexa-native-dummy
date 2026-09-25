@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,7 +24,6 @@ import kotlinx.coroutines.delay
 fun SplashScreen(onFinish: (Boolean) -> Unit) {
     var progress by remember { mutableStateOf(0f) }
     LaunchedEffect(Unit) {
-        // Simulate loading like HTML
         delay(2000)
         onFinish(false)
     }
@@ -34,7 +34,6 @@ fun SplashScreen(onFinish: (Boolean) -> Unit) {
             .background(Bg),
         contentAlignment = Alignment.Center
     ) {
-        // Glow effects like HTML ::before ::after
         Box(
             Modifier
                 .size(360.dp)
@@ -48,7 +47,6 @@ fun SplashScreen(onFinish: (Boolean) -> Unit) {
                 .blur(34.dp)
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Logo box - 150px, rounded 36px, glow
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -63,11 +61,14 @@ fun SplashScreen(onFinish: (Boolean) -> Unit) {
             Spacer(Modifier.height(26.dp))
             Text(
                 "NEXA",
-                fontSize = 36.sp,
-                fontWeight = FontWeight.ExtraBold,
-                letterSpacing = 8.sp,
-                brush = Brush.linearGradient(listOf(Color(0xFF4ADE80), Color(0xFF22C55E), Color(0xFF2DD4BF))),
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    brush = Brush.linearGradient(
+                        listOf(Color(0xFF4ADE80), Color(0xFF22C55E), Color(0xFF2DD4BF))
+                    ),
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    letterSpacing = 8.sp
+                )
             )
             Text(
                 "Move Money Freely",
@@ -77,7 +78,6 @@ fun SplashScreen(onFinish: (Boolean) -> Unit) {
                 letterSpacing = 2.5.sp
             )
             Spacer(Modifier.height(80.dp))
-            // Loader - exact center like HTML fix
             Box(
                 Modifier
                     .width(130.dp)
