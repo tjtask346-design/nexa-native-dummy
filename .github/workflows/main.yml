@@ -19,17 +19,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Clear old Gradle cache
-        run: rm -rf ~/.gradle/wrapper ~/.gradle/caches
+      - name: Setup Gradle 8.10.2 (force, ignore wrapper jar)
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.10.2
 
-      - name: Check which wrapper is used
+      - name: Clear old wrapper cache
+        run: rm -rf ~/.gradle/wrapper
+
+      - name: Verify files on GitHub
         run: |
+          echo "--- wrapper properties on GitHub ---"
           cat gradle/wrapper/gradle-wrapper.properties
-          chmod +x gradlew
-          ./gradlew --version
+          echo "--- gradle version that will be used ---"
+          gradle --version
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+      - name: Build Debug APK with Gradle 8.10.2
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
